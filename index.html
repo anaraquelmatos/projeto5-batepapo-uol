@@ -30,7 +30,7 @@
         </div>
     </header>
 
-    <!--Main content-->
+    <!--Main content(chat messages)-->
     <main>
 
     </main>
@@ -39,13 +39,14 @@
     <footer>
         <div id="contents-footer">
             <input type="text" class="answer" placeholder="Escreva aqui..." />
-            <ion-icon onclick="sendMessages()" name="paper-plane-outline"></ion-icon>
+            <ion-icon data-identifier="send-message" onclick="sendMessages()" name="paper-plane-outline"></ion-icon>
         </div>
     </footer>
 
     <!--library-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>  
+   
     <!--js-->
     <script src="script.js"></script>
 </body>

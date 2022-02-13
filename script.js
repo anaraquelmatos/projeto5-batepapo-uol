@@ -1,3 +1,4 @@
+//Global variables
 let nameParticipant;
 let chatmessages = [];
 const typeStatus = "status";
@@ -6,6 +7,7 @@ const typePrivateMessage = "private_message";
 let interval = null;
 let intervalMessage = null;
 
+//Function that asks users for their names to send to API
 function askUser() {
 
     nameParticipant = { name: prompt("Olá! Qual o seu nome?") };
@@ -19,18 +21,21 @@ function askUser() {
 }
 askUser()
 
+//Function that updates users' status to send to API
 function searchStatus() {
 
     const statusInChat = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", nameParticipant);
 
 }
 
+//Calls the functions to update them with times and checks if the request was successful
 function successfulRequest() {
     console.log("A sua requisição foi completada com sucesso!");
     interval = setInterval(searchStatus, 5000);
     intervalMessage = setInterval(getMessage, 3000);
 }
 
+//Shows the errors found in the request
 function notsuccessfulRequest(error) {
     const response = error.response.status;
     console.log(response);
@@ -40,12 +45,14 @@ function notsuccessfulRequest(error) {
 
 }
 
+//Get chat messages to show on the screen
 function getMessage() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     promise.then((message) => { showChatUpdate(message) });
     promise.catch(notsuccessfulRequest);
 }
 
+//Function that shows each type of message
 function showChatUpdate(returned) {
 
     let main = document.querySelector("main");
@@ -65,7 +72,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-        <div class=" backgroundChatStatus ${last} ${returned.data.type}">
+        <div data-identifier="message" class=" backgroundChatStatus ${last} ${returned.data.type}">
         <p class="time">(${returned.data[i].time})</p>
         <p class="sender"><b>${returned.data[i].from}</b></p>
         <p class="text">${returned.data[i].text}</p>
@@ -76,7 +83,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-            <div class=" backgroundChatPublicMessage ${last} ${returned.data.type}">
+            <div data-identifier="message" class=" backgroundChatPublicMessage ${last} ${returned.data.type}">
             <p class="time">(${returned.data[i].time})</p>
             <p class="sender"><b>${returned.data[i].from}</b></p>
             <p>para</p>
@@ -88,7 +95,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-            <div class=" backgroundChatPrivateMessage ${last} ${returned.data.type}">
+            <div data-identifier="message" class=" backgroundChatPrivateMessage ${last} ${returned.data.type}">
             <p class="time">(${returned.data[i].time})</p>
             <p class="sender"><b>${returned.data[i].from}</b></p>
             <p>reservadamente para</p>
@@ -105,6 +112,7 @@ function showChatUpdate(returned) {
 
 }
 
+//Function to send my own chat 
 function sendMessages() {
 
     let textParticipant = document.querySelector("footer input").value;
@@ -123,11 +131,12 @@ function sendMessages() {
 
 }
 
+//Function to clear the messages on input
 function clearMessages() {
     let footer = document.querySelector("footer");
     footer.innerHTML = `
         <div id="contents-footer">
             <input type="text" class="answer" placeholder="Escreva aqui..." />
-            <ion-icon onclick="sendMessages()" name="paper-plane-outline"></ion-icon>
+            <ion-icon data-identifier="send-message" onclick="sendMessages()" name="paper-plane-outline"></ion-icon>
         </div>`
 }
