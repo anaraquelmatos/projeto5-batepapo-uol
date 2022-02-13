@@ -42,7 +42,7 @@ function notSuccessRequest(error) {
 }
 
 const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-promise.then((mensagem) => {showChatUpdate(mensagem)});
+promise.then((mensagem) => { showChatUpdate(mensagem) });
 promise.catch(notSuccessRequest);
 
 
@@ -55,14 +55,15 @@ function showChatUpdate(returned) {
         main.innerHTML += `
         
         <div class="status">
-        <p class="time"> (${returned.data[i].time}) </p>
-        <p class="sender"> <b> ${returned.data[i].from}</b> para</p>
-        <p class="text margin"> ${returned.data[i].text}</p>
+        <p class="time">(${returned.data[i].time})</p>
+        <p class="sender"><b>${returned.data[i].from}</b></p>
+        <p>para</p>
+        <p class="recipient"><b>${returned.data[i].to}</b>:</p>
+        <p class="text">${returned.data[i].text}</p>
       </div>`;
 
-     
-
     }
+
 
 
 }

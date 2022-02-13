@@ -41,31 +41,45 @@ header ion-icon {
 }
 
 main {
+    width: 100%;
     margin-top: 100px;
     margin-bottom: 100px;
 }
 
 main div {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     border-radius: 2px;
-    padding: 20px 0 20px 0;
+    margin-bottom: 4px;
     border-bottom: 4px;
+    padding: 8px 8px 8px 8px;
+    text-align: justify;
+    text-justify: inter-word;
+    word-break: break-all;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 16px;
 }
 
+main .status p{
+    padding-right: 0.5em;
+}
+
+main .status b{
+    font-weight: 700;
+}
+
 main .status .time {
-    margin-left: 8px;
     color: #AAAAAA;
 }
 
-main div.background{
-    background-color: #FFDEDE;
+.background{
+    background-color: green;
+    display: none;
 }
 
 
