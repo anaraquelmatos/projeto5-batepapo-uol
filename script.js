@@ -1,9 +1,10 @@
 let nameParticipant;
-let participantChatInfo = [];
+let myChatInfo = [];
 let chatmessages = [];
 const typeStatus = "status";
 const typeMessage = "message";
 const typePrivateMessage = "private_message";
+let chatUpdate = false;
 
 function askUser() {
 
@@ -11,8 +12,8 @@ function askUser() {
 
     const participants = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", nameParticipant);
 
-    participants.then(successRequest);
-    participants.catch(notSuccessRequest);
+    participants.then(successfulRequest);
+    participants.catch(notsuccessfulRequest);
     console.log(nameParticipant);
 
 }
@@ -21,18 +22,18 @@ askUser()
 function searchStatus() {
 
     const statusInChat = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", nameParticipant);
-    statusInChat.then(successRequest);
-    statusInChat.catch(notSuccessRequest);
+    statusInChat.then(successfulRequest);
+    statusInChat.catch(notsuccessfulRequest);
 
 }
 
 setInterval(searchStatus, 5000)
 
-function successRequest() {
+function successfulRequest() {
     console.log("A sua requisição foi completada com sucesso!");
 }
 
-function notSuccessRequest(error) {
+function notsuccessfulRequest(error) {
     const response = error.response.status;
     console.log(response);
     if (response == 400) {
@@ -43,7 +44,7 @@ function notSuccessRequest(error) {
 
 const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
 promise.then((message) => { showChatUpdate(message) });
-promise.catch(notSuccessRequest);
+promise.catch(notsuccessfulRequest);
 
 
 function showChatUpdate(returned) {
@@ -96,5 +97,27 @@ function showChatUpdate(returned) {
 
     }
 
+    const element = document.querySelector('main div');
+    element.scrollIntoView();
+
 }
 
+
+
+function sendMessages() {
+
+    let textParticipant = document.querySelector("footer input").value;
+    console.log(textParticipant);
+
+    const myMessages = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", myChatInfo);
+    myMessages.then(availableMessages);
+    myMessages.catch(notsuccessfulRequest);
+
+    myChatInfo = {
+        from: nameParticipant,
+        to: "Todos",
+        text: textParticipant,
+        type: "message"
+    };
+
+}

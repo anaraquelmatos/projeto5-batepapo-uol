@@ -56,8 +56,6 @@ main div {
     margin-bottom: 4px;
     border-bottom: 4px;
     padding: 8px 8px 8px 8px;
-    text-align: justify;
-    text-justify: inter-word;
     word-break: break-all;
     font-style: normal;
     font-weight: normal;
@@ -110,13 +108,17 @@ footer #contents-footer {
 
 footer input {
     height: 30px;
-    width: 145px;
+    width: 100%;
     margin-left: 17px;
     border: none;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
+}
+
+input:focus{
+    outline: none;
 }
 
 footer input[placeholder] {
