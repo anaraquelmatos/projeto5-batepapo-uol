@@ -1,6 +1,9 @@
 let nameParticipant;
-let participantChatInfo = {};
-
+let participantChatInfo = [];
+let chatmessages = [];
+const typeStatus = "status";
+const typeMessage = "message";
+const typePrivateMessage = "private_message";
 
 function askUser() {
 
@@ -32,42 +35,35 @@ function successRequest() {
 function notSuccessRequest(error) {
     const response = error.response.status;
     console.log(response);
-}
-
-function catchMessages() {
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-    promise.then(showChatUpdate);
-    promise.catch(notSuccessRequest);
+    if (response == 400) {
+        askUser();
+    }
 
 }
 
-function catchPromise(answer) {
-    console.log(answer);
-    messages = answer.data;
-}
+const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+promise.then((mensagem) => {showChatUpdate(mensagem)});
+promise.catch(notSuccessRequest);
 
-function showChatUpdate(allInfos) {
-    let sender;
-    let recipient;
-    let description;
-    let type;
-    let time;
 
-    for (let i = 0; i < allInfos.data.length; i++) {
+function showChatUpdate(returned) {
 
-        time = allInfos.data[i].time;
-        recipient = allInfos.data[i].to;
-        description = allInfos.data[i].text;
+    for (let i = 0; i < returned.data.length; i++) {
+
+        let main = document.querySelector("main");
+
+        main.innerHTML += `
+        
+        <div class="status">
+        <p class="time"> (${returned.data[i].time}) </p>
+        <p class="sender"> <b> ${returned.data[i].from}</b> para</p>
+        <p class="text margin"> ${returned.data[i].text}</p>
+      </div>`;
+
+     
 
     }
 
-    if (nameParticipant.name) {
-        const ul = document.querySelector("ul");
-        ul.innerHTML += `
 
-  <li><b>(${time})</b> para <b>${recipient}</b>: ${description}</li>
-    
-`;
-    }
 }
 

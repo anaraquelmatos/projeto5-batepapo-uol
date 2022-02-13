@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #E5E5E5;
+    background-color: #F3F3F3;
 }
 
 * {
@@ -39,6 +39,35 @@ header ion-icon {
     margin-right: 22px;
     color: black;
 }
+
+main {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+main div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 2px;
+    padding: 20px 0 20px 0;
+    border-bottom: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+main .status .time {
+    margin-left: 8px;
+    color: #AAAAAA;
+}
+
+main div.background{
+    background-color: #FFDEDE;
+}
+
 
 footer {
     width: 100%;
