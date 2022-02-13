@@ -72,7 +72,7 @@ function showChatUpdate(returned) {
       </div>`;
 
 
-        }else if (returned.data[i].type == typeMessage) {
+        } else if (returned.data[i].type == typeMessage) {
 
             main.innerHTML += `
         
@@ -84,7 +84,7 @@ function showChatUpdate(returned) {
             <p class="text">${returned.data[i].text}</p>
           </div>`;
 
-        }else if (returned.data[i].type == typePrivateMessage) {
+        } else if (returned.data[i].type == typePrivateMessage) {
 
             main.innerHTML += `
         
@@ -118,6 +118,16 @@ function sendMessages() {
     };
 
     const myMessages = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", myChatInfo);
+    myMessages.then(clearMessages);
     myMessages.catch(notsuccessfulRequest);
 
+}
+
+function clearMessages() {
+    let footer = document.querySelector("footer");
+    footer.innerHTML = `
+        <div id="contents-footer">
+            <input type="text" class="answer" placeholder="Escreva aqui..." />
+            <ion-icon onclick="sendMessages()" name="paper-plane-outline"></ion-icon>
+        </div>`
 }

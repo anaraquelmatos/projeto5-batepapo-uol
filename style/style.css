@@ -121,14 +121,6 @@ input:focus{
     outline: none;
 }
 
-footer input[placeholder] {
-    font-style: italic;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    color: black;
-}
-
 footer ion-icon {
     font-size: 25px;
     margin-right: 17px;
