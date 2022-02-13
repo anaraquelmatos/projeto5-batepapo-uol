@@ -57,11 +57,12 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-        <div class="${returned.data.type}">
+        <div class=" backgroundChatStatus ${returned.data.type}">
         <p class="time">(${returned.data[i].time})</p>
         <p class="sender"><b>${returned.data[i].from}</b></p>
         <p class="text">${returned.data[i].text}</p>
       </div>`;
+
 
         }
 
@@ -69,7 +70,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-            <div class="${returned.data.type}">
+            <div class=" backgroundChatPublicMessage ${returned.data.type}">
             <p class="time">(${returned.data[i].time})</p>
             <p class="sender"><b>${returned.data[i].from}</b></p>
             <p>para</p>
@@ -83,7 +84,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-            <div class="${returned.data.type}">
+            <div class=" backgroundChatPrivateMessage ${returned.data.type}">
             <p class="time">(${returned.data[i].time})</p>
             <p class="sender"><b>${returned.data[i].from}</b></p>
             <p>reservadamente para</p>
@@ -92,10 +93,8 @@ function showChatUpdate(returned) {
           </div>`;
 
         }
-    }
 
-    const element = document.querySelector('div');
-    element.scrollIntoView();
+    }
 
 }
 

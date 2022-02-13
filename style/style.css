@@ -78,9 +78,15 @@ main div .time {
 }
 
 .backgroundChatStatus {
-    background-color: red;
-    /*#DCDCDC*/
-    display: none;
+    background-color: #DCDCDC;
+}
+
+.backgroundChatPublicMessage {
+    background-color: #FFFFFF;
+}
+
+.backgroundChatPrivateMessage {
+    background-color: #FFDEDE;
 }
 
 footer {
