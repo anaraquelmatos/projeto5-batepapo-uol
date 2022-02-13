@@ -1,10 +1,10 @@
 let nameParticipant;
-let myChatInfo = [];
 let chatmessages = [];
 const typeStatus = "status";
 const typeMessage = "message";
 const typePrivateMessage = "private_message";
 let chatUpdate = false;
+let interval = null;
 
 function askUser() {
 
@@ -27,10 +27,11 @@ function searchStatus() {
 
 }
 
-setInterval(searchStatus, 5000)
+
 
 function successfulRequest() {
     console.log("A sua requisição foi completada com sucesso!");
+    interval = setInterval(searchStatus, 5000);
 }
 
 function notsuccessfulRequest(error) {
@@ -102,22 +103,22 @@ function showChatUpdate(returned) {
 
 }
 
-
-
 function sendMessages() {
 
     let textParticipant = document.querySelector("footer input").value;
     console.log(textParticipant);
 
-    const myMessages = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", myChatInfo);
-    myMessages.then(availableMessages);
-    myMessages.catch(notsuccessfulRequest);
-
-    myChatInfo = {
+  const myChatInfo = {
         from: nameParticipant,
         to: "Todos",
         text: textParticipant,
         type: "message"
     };
 
+    const myMessages = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", myChatInfo);
+    myMessages.then(availableMessages);
+    myMessages.catch(notsuccessfulRequest);
+
+    console.log(myChatInfo);
+ 
 }
