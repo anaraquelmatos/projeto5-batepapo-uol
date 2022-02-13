@@ -65,23 +65,23 @@ main div {
     line-height: 16px;
 }
 
-main .status p{
+main div p {
     padding-right: 0.5em;
 }
 
-main .status b{
+main div b {
     font-weight: 700;
 }
 
-main .status .time {
+main div .time {
     color: #AAAAAA;
 }
 
-.background{
-    background-color: green;
+.backgroundChatStatus {
+    background-color: red;
+    /*#DCDCDC*/
     display: none;
 }
-
 
 footer {
     width: 100%;
