@@ -52,11 +52,12 @@ function showChatUpdate(returned) {
 
     main.innerHTML = "";
 
+    let last = "";
+
     for (let i = 0; i < returned.data.length; i++) {
 
-        let last = "";
-
         if (i === returned.data.length - 1) {
+
             last = "last";
         }
 
@@ -71,9 +72,7 @@ function showChatUpdate(returned) {
       </div>`;
 
 
-        }
-
-        if (returned.data[i].type == typeMessage) {
+        }else if (returned.data[i].type == typeMessage) {
 
             main.innerHTML += `
         
@@ -85,9 +84,7 @@ function showChatUpdate(returned) {
             <p class="text">${returned.data[i].text}</p>
           </div>`;
 
-        }
-
-        if (returned.data[i].type == typePrivateMessage) {
+        }else if (returned.data[i].type == typePrivateMessage) {
 
             main.innerHTML += `
         
@@ -103,7 +100,7 @@ function showChatUpdate(returned) {
 
     }
 
-    const element = document.querySelector("last");
+    const element = document.querySelector(".last");
     element.scrollIntoView();
 
 }
