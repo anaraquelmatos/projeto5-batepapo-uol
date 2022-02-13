@@ -22,8 +22,8 @@ askUser()
 function searchStatus() {
 
     const statusInChat = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", nameParticipant);
-    statusInChat.then(successfulRequest);
-    statusInChat.catch(notsuccessfulRequest);
+   // statusInChat.then(successfulRequest);
+  //  statusInChat.catch(notsuccessfulRequest);
 
 }
 
@@ -109,16 +109,16 @@ function sendMessages() {
     console.log(textParticipant);
 
   const myChatInfo = {
-        from: nameParticipant,
+        from: nameParticipant.name,
         to: "Todos",
         text: textParticipant,
         type: "message"
     };
 
     const myMessages = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", myChatInfo);
-    myMessages.then(availableMessages);
-    myMessages.catch(notsuccessfulRequest);
+   // myMessages.then(availableMessages);
+   // myMessages.catch(notsuccessfulRequest);
 
-    console.log(myChatInfo);
+  //  console.log(myChatInfo);
  
 }
