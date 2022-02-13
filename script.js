@@ -3,8 +3,8 @@ let chatmessages = [];
 const typeStatus = "status";
 const typeMessage = "message";
 const typePrivateMessage = "private_message";
-let chatUpdate = false;
 let interval = null;
+let intervalMessage = null;
 
 function askUser() {
 
@@ -22,16 +22,13 @@ askUser()
 function searchStatus() {
 
     const statusInChat = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", nameParticipant);
-   // statusInChat.then(successfulRequest);
-  //  statusInChat.catch(notsuccessfulRequest);
 
 }
-
-
 
 function successfulRequest() {
     console.log("A sua requisição foi completada com sucesso!");
     interval = setInterval(searchStatus, 5000);
+    intervalMessage = setInterval(getMessage, 3000);
 }
 
 function notsuccessfulRequest(error) {
@@ -43,23 +40,31 @@ function notsuccessfulRequest(error) {
 
 }
 
-const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-promise.then((message) => { showChatUpdate(message) });
-promise.catch(notsuccessfulRequest);
-
+function getMessage() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+    promise.then((message) => { showChatUpdate(message) });
+    promise.catch(notsuccessfulRequest);
+}
 
 function showChatUpdate(returned) {
 
+    let main = document.querySelector("main");
+
+    main.innerHTML = "";
 
     for (let i = 0; i < returned.data.length; i++) {
 
-        let main = document.querySelector("main");
+        let last = "";
+
+        if (i === returned.data.length - 1) {
+            last = "last";
+        }
 
         if (returned.data[i].type == typeStatus) {
 
             main.innerHTML += `
         
-        <div class=" backgroundChatStatus ${returned.data.type}">
+        <div class=" backgroundChatStatus ${last} ${returned.data.type}">
         <p class="time">(${returned.data[i].time})</p>
         <p class="sender"><b>${returned.data[i].from}</b></p>
         <p class="text">${returned.data[i].text}</p>
@@ -72,7 +77,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-            <div class=" backgroundChatPublicMessage ${returned.data.type}">
+            <div class=" backgroundChatPublicMessage ${last} ${returned.data.type}">
             <p class="time">(${returned.data[i].time})</p>
             <p class="sender"><b>${returned.data[i].from}</b></p>
             <p>para</p>
@@ -86,7 +91,7 @@ function showChatUpdate(returned) {
 
             main.innerHTML += `
         
-            <div class=" backgroundChatPrivateMessage ${returned.data.type}">
+            <div class=" backgroundChatPrivateMessage ${last} ${returned.data.type}">
             <p class="time">(${returned.data[i].time})</p>
             <p class="sender"><b>${returned.data[i].from}</b></p>
             <p>reservadamente para</p>
@@ -98,7 +103,7 @@ function showChatUpdate(returned) {
 
     }
 
-    const element = document.querySelector('main div');
+    const element = document.querySelector("last");
     element.scrollIntoView();
 
 }
@@ -108,7 +113,7 @@ function sendMessages() {
     let textParticipant = document.querySelector("footer input").value;
     console.log(textParticipant);
 
-  const myChatInfo = {
+    const myChatInfo = {
         from: nameParticipant.name,
         to: "Todos",
         text: textParticipant,
@@ -116,9 +121,6 @@ function sendMessages() {
     };
 
     const myMessages = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", myChatInfo);
-   // myMessages.then(availableMessages);
-   // myMessages.catch(notsuccessfulRequest);
+    myMessages.catch(notsuccessfulRequest);
 
-  //  console.log(myChatInfo);
- 
 }
