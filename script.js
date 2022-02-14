@@ -45,7 +45,6 @@ function successfulRequest() {
 //Shows the errors found in the request
 function notsuccessfulRequest(error) {
     const response = error.response.status;
-    console.log(response);
     if (response === 400) {
         let enter = document.querySelector(".login input");
         enter.placeholder = "Tente outro nome";
