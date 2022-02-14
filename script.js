@@ -7,18 +7,26 @@ const typePrivateMessage = "private_message";
 let interval = null;
 let intervalMessage = null;
 
-//Function that asks users for their names to send to API
-function askUser() {
+//Function that send users' name to send to API
+function toAccessMainScreen() {
 
-    nameParticipant = { name: prompt("Olá! Qual o seu nome?") };
+    let nameUser = document.querySelector(".login input");
+
+    nameParticipant = { name: nameUser.value }
 
     const participants = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", nameParticipant);
-
-    participants.then(successfulRequest);
+    participants.then(removeScreen);
     participants.catch(notsuccessfulRequest);
 
 }
-askUser()
+
+//Function that removes screen with user's login
+function removeScreen() {
+    let removeLoginScreen = document.querySelector(".login");
+    removeLoginScreen.classList.add("hide");
+    successfulRequest();
+
+}
 
 //Function that updates users' status to send to API
 function searchStatus() {
@@ -38,8 +46,10 @@ function successfulRequest() {
 function notsuccessfulRequest(error) {
     const response = error.response.status;
     console.log(response);
-    if (response == 400) {
-        askUser();
+    if (response === 400) {
+        let enter = document.querySelector(".login input");
+        enter.placeholder = "Tente outro nome";
+        enter.value = "";
     }
 
 }
@@ -67,7 +77,7 @@ function showChatUpdate(returned) {
             last = "last";
         }
 
-        if (returned.data[i].type == typeStatus) {
+        if (returned.data[i].type === typeStatus) {
 
             main.innerHTML += `
         
@@ -78,7 +88,7 @@ function showChatUpdate(returned) {
       </div>`;
 
 
-        } else if (returned.data[i].type == typeMessage) {
+        } else if (returned.data[i].type === typeMessage) {
 
             main.innerHTML += `
         
@@ -90,7 +100,7 @@ function showChatUpdate(returned) {
             <p class="text">${returned.data[i].text}</p>
           </div>`;
 
-        } else if (returned.data[i].type == typePrivateMessage) {
+        } else if (returned.data[i].type === typePrivateMessage) {
 
             main.innerHTML += `
         
@@ -134,7 +144,7 @@ function clearMessages() {
     let footer = document.querySelector("footer");
     footer.innerHTML = `
         <div id="contents-footer">
-            <input type="text" class="answer" placeholder="Escreva aqui..." />
+            <input class = "footer-input" type="text" class="answer" placeholder="Escreva aqui..." />
             <ion-icon data-identifier="send-message" onclick="sendMessages()" name="paper-plane-outline"></ion-icon>
         </div>`
 }
