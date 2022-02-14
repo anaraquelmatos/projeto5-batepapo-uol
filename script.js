@@ -1,6 +1,5 @@
 //Global variables
 let nameParticipant;
-let chatmessages = [];
 const typeStatus = "status";
 const typeMessage = "message";
 const typePrivateMessage = "private_message";
