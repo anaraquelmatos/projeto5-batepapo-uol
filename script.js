@@ -16,7 +16,6 @@ function askUser() {
 
     participants.then(successfulRequest);
     participants.catch(notsuccessfulRequest);
-    console.log(nameParticipant);
 
 }
 askUser()
@@ -116,7 +115,6 @@ function showChatUpdate(returned) {
 function sendMessages() {
 
     let textParticipant = document.querySelector("footer input").value;
-    console.log(textParticipant);
 
     const myChatInfo = {
         from: nameParticipant.name,
