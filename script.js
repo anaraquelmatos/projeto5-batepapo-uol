@@ -99,7 +99,7 @@ function showChatUpdate(returned) {
             <p class="text">${returned.data[i].text}</p>
           </div>`;
 
-        } else if (returned.data[i].type === typePrivateMessage) {
+        } else if (returned.data[i].type === typePrivateMessage && returned.data[i].to === nameParticipant.name) {
 
             main.innerHTML += `
         
